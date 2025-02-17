@@ -1,0 +1,187 @@
+<ngx-sonner-toaster [richColors]="true" />
+<div class="w-screen h-screen relative overflow-hidden bg-[#002c58]">
+  <div class="w-full h-full flex flex-row">
+    <div
+      class="basis-full relative hidden flex-col justify-between p-4 lg:flex"
+    >
+      <div
+        class="w-[1622px] h-[1622px] z-0 bg-[#ffffff] rounded-full absolute -top-[400px] -left-[712px]"
+      ></div>
+      <img
+        class="bottom-8 z-0 w-32 absolute right-20"
+        src="images/nmb-light.png"
+        alt=""
+        srcset=""
+      />
+      <div class="grid place-items-center z-20 left-4 h-full w-full">
+        <!-- <h6 class="text-2xl italic">
+          SEAMLESS GIVING, DIGITALLY WITH EASE
+        </h6>
+        <div class="w-full overflow-hidden">
+          <h6
+            id="quote-author"
+            class="!text-xs !text-gray-500 -translate-y-full hidden"
+          >
+            Koffi Anan
+          </h6>
+        </div> -->
+        <div class="grid place-items-center">
+          <div class="grid place-items-center">
+            <img src="images/RCP-logo.png" class="w-44" alt="" srcset="" />
+            <h6
+              style="font-family: 'Arial' !important"
+              class="!text-4xl !text-[#041F5C]"
+            >
+              Religious contribution portal
+            </h6>
+          </div>
+          <h6
+            style="font-family: 'Libre Baskerville' !important"
+            class="text-lg italic"
+          >
+            SEAMLESS GIVING, DIGITALLY WITH EASE
+          </h6>
+        </div>
+      </div>
+      <div class="z-20">
+        <h6 class="!text-xs text-gray-400 !font-light">
+          Designed & Developed by
+          <a class="!text-gray-600 !font-normal !cursor-pointer"
+            >Biz-Logic Solutions Ltd.</a
+          >
+        </h6>
+      </div>
+    </div>
+    <div class="basis-full lg:basis-8/12 grid place-items-center relative">
+      <!-- <div
+        class="triangle bg-[#002c58] absolute -left-80 -top-56 transform -rotate-[120deg]"
+      ></div>
+      <div
+        class="triangle bg-[#002c58] absolute -left-80 -bottom-96 transform -rotate-[45deg]"
+      ></div>
+      <div
+        class="w-8 h-8 rounded-full bg-[#3055AB] absolute right-4 top-4 blur-lg"
+      ></div>
+      <div
+        class="w-20 h-20 rounded-full bg-[#3055AB] absolute left-4 top-4 blur-lg"
+      ></div>
+      <div
+        class="w-16 h-16 rounded-full bg-[#3055AB] absolute left-64 bottom-4 blur-lg"
+      ></div> -->
+      <mat-card class="!w-96 py-4">
+        <mat-card-title class="!w-full !grid !place-items-center">
+          <img
+            src="images/RCP-logo.png"
+            class="w-20 block lg:hidden"
+            alt=""
+            srcset=""
+          />
+          <h6 style="font-family: 'Fjalla One'" class="text-[#041F5C] text-xl">
+            Religious contribution portal
+          </h6>
+        </mat-card-title>
+        <mat-divider class="!w-full !opacity-20 !py-1"></mat-divider>
+        <mat-card-content class="!w-full !flex !flex-col !py-2">
+          <form
+            (ngSubmit)="submitForm($event)"
+            [formGroup]="formGroup"
+            class="flex flex-col w-full"
+          >
+            <div class="w-full flex flex-col">
+              <div class="flex flex-row items-center justify-between w-full">
+                <h6 class="!text-xs">
+                  {{ "LOGIN_FORM.FORM.LABELS.USERNAME" | translate }}
+                </h6>
+              </div>
+              <mat-form-field
+                class="text-field-input"
+                color="primary"
+                accent="secondary"
+              >
+                <mat-icon svgIcon="person-fill" matPrefix></mat-icon>
+                <input
+                  matInput
+                  [placeholder]="
+                    'LOGIN_FORM.FORM.PLACEHOLDERS.USERNAME' | translate
+                  "
+                  type="text"
+                  class="!text-xs"
+                  [formControl]="username"
+                />
+                <mat-error>
+                  {{ "LOGIN_FORM.FORM.ERRORS.USERNAME" | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="w-full flex flex-col">
+              <div class="flex flex-row items-center justify-between w-full">
+                <h6 class="!text-xs">
+                  {{ "LOGIN_FORM.FORM.LABELS.PASSWORD" | translate }}
+                </h6>
+                <a
+                  (click)="forgotPasswordClicked($event)"
+                  class="text-info cursor-pointer text-xs text-[var(--sys-primary)] hover:underline"
+                >
+                  {{ "LOGIN_FORM.FORM.LABELS.FORGOT_PASSWORD" | translate }}
+                </a>
+              </div>
+              <mat-form-field
+                class="text-field-input"
+                color="primary"
+                accent="secondary"
+              >
+                <mat-icon svgIcon="lock-fill" matPrefix></mat-icon>
+                <input
+                  matInput
+                  [placeholder]="
+                    'LOGIN_FORM.FORM.PLACEHOLDERS.PASSWORD' | translate
+                  "
+                  type="password"
+                  class="!text-xs"
+                  [formControl]="password"
+                />
+                <mat-error>
+                  {{ "LOGIN_FORM.FORM.ERRORS.PASSWORD" | translate }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div
+              *ngIf="hasPasswordError$ | async"
+              [@inOutAnimation]
+              class="w-full py-2 grid place-items-center"
+            >
+              <ngx-recaptcha2
+                #captchaElem
+                [siteKey]="siteKeyGoogleCaptchaKey"
+                [useGlobalDomain]="false"
+                [formControl]="recaptcha"
+                (success)="handleSuccess($event)"
+                (expire)="handleExpire()"
+                (reset)="handleExpire()"
+              >
+              </ngx-recaptcha2>
+              <mat-error *ngIf="recaptcha && recaptcha.invalid">
+                {{ "LOGIN_FORM.FORM.ERRORS.ENTER_CAPTCHA" | translate }}
+              </mat-error>
+            </div>
+            <div class="w-full flex flex-row items-center justify-end py-2">
+              <button type="ngSubmit" mat-flat-button>
+                {{ "LOGIN_FORM.ACTIONS.LOG_IN" | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+        <div class="w-full flex flex-col items-center">
+          <h6 class="!text-xs text-center text-gray-300 !font-light">
+            Powered by
+          </h6>
+          <a
+            href="http://bizlogicsolutions.com/"
+            class="!text-sm text-center font-normal !text-gray-600"
+            >Biz-Logic Solutions Ltd.</a
+          >
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

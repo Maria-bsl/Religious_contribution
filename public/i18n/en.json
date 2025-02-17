@@ -1,0 +1,34 @@
+{
+  "DEFAULTS": {
+    "TITLE": "Religious contribution portal",
+    "FAILED": "Failed",
+    "LABELS": {
+      "CLOSE": "Close",
+      "LOADING": "Loading"
+    }
+  },
+  "LOGIN_FORM": {
+    "FORM": {
+      "LABELS": {
+        "USERNAME": "Username",
+        "PASSWORD": "Password",
+        "FORGOT_PASSWORD": "Forgot your password?"
+      },
+      "PLACEHOLDERS": {
+        "USERNAME": "Enter username",
+        "PASSWORD": "Enter password"
+      },
+      "ERRORS": {
+        "USERNAME": "Please, enter username",
+        "PASSWORD": "Please, enter password",
+        "LOGIN_FAILED": "Login failed",
+        "INVALID_USERNAME_OR_PASSWORD": "Username or password is incorrect.",
+        "INVALID_INPUT_DATE": "The input date is greater than 24 hours ago",
+        "ENTER_CAPTCHA": "Please, enter captcha"
+      }
+    },
+    "ACTIONS": {
+      "LOG_IN": "Log In"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+$base-color: #002c58;
+
+.triangle {
+  width: 400px;
+  height: 700px;
+  //   background-color: #002c58;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}

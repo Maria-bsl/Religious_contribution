@@ -1,0 +1,12 @@
+<form [formGroup]="formGroup" class="w-full flex flex-col">
+  <ngx-recaptcha2
+    #captchaElem
+    [siteKey]="siteKeyGoogleCaptchaKey"
+    [useGlobalDomain]="false"
+    [formControl]="recaptcha"
+    (success)="handleSuccess($event)"
+    (expire)="handleExpire()"
+    (reset)="handleExpire()"
+  >
+  </ngx-recaptcha2>
+</form>
