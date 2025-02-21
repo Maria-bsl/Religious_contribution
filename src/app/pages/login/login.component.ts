@@ -22,7 +22,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
 import { AppConfigService } from '../../service/app-config/app-config.service';
 import { MatIconModule } from '@angular/material/icon';
 import { catchError, finalize, mergeMap, Observable, of } from 'rxjs';
@@ -95,7 +99,7 @@ export class LoginComponent implements AfterViewInit {
     private _unsubscribe: UnsubscribeService,
     private _api: ApiService,
     private _dialog: MatDialog,
-    private _tr: TranslatePipe,
+    private _tr: TranslateService,
     private _loading: LoadingService
   ) {
     this.registerIcons();
@@ -167,15 +171,15 @@ export class LoginComponent implements AfterViewInit {
       switch (res.check) {
         case 'The input date is greater than 24 hours ago':
           openAlertDialog(
-            this._tr.transform('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
-            this._tr.transform('LOGIN_FORM.FORM.ERRORS.INVALID_INPUT_DATE')
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.INVALID_INPUT_DATE')
           );
           break;
         case 'Username or password is incorrect':
         default:
           openAlertDialog(
-            this._tr.transform('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
-            this._tr.transform(
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
+            this._tr.instant(
               'LOGIN_FORM.FORM.ERRORS.INVALID_USERNAME_OR_PASSWORD'
             )
           );
