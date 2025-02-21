@@ -30,5 +30,21 @@
     "ACTIONS": {
       "LOG_IN": "Log In"
     }
+  },
+  "OTP_PAGE": {
+    "LABELS": {
+      "RESEND_OTP_CODE": "Resend code",
+      "RESEND_CODE_IN": "Resend code in {{}} seconds",
+      "INVALID_FORM": "Invalid form"
+    },
+    "ACTIONS": {
+      "VERIFY": "Verify"
+    },
+    "ERRORS": {
+      "MISSING_CAPTCHA": "Please, verify captcha",
+      "INVALID_VERIFICATION_CODE": "Invalid verification code! Please, enter the 6 digits code sent to you.",
+      "FAILED_TO_VERIFY_CODE": "Failed to verify code! Please contact support or try again.",
+      "VERIFICATION_FAILED": "Verification failed"
+    }
   }
 }

@@ -1,12 +1,66 @@
-<form [formGroup]="formGroup" class="w-full flex flex-col">
-  <ngx-recaptcha2
-    #captchaElem
-    [siteKey]="siteKeyGoogleCaptchaKey"
-    [useGlobalDomain]="false"
-    [formControl]="recaptcha"
-    (success)="handleSuccess($event)"
-    (expire)="handleExpire()"
-    (reset)="handleExpire()"
+<form
+  id="otp-form"
+  (ngSubmit)="submitForm($event)"
+  [formGroup]="formGroup"
+  class="w-full grid place-items-center py-4"
+>
+  <div>
+    <ng-otp-input
+      class="!text-lg"
+      #ngOtpInput
+      [formCtrl]="opt_code"
+      [config]="otpConfig"
+    ></ng-otp-input>
+  </div>
+  <div class="pt-4">
+    <ngx-recaptcha2
+      #captchaElem
+      [siteKey]="siteKeyGoogleCaptchaKey"
+      [useGlobalDomain]="false"
+      [formControl]="recaptcha"
+      (success)="handleSuccess($event)"
+      (expire)="handleExpire()"
+      (reset)="handleExpire()"
+      (load)="startTimer()"
+      (error)="recaptchaError($event)"
+    >
+    </ngx-recaptcha2>
+  </div>
+  <div class="w-full flex flex-row items-center justify-between py-4">
+    <div class="relative w-full h-12 grid content-center">
+      <h6
+        *ngIf="timer$ && (timer$ | async)! > 0; else resendBtn"
+        [@inOutAnimation]
+        class="mat-label-small !font-light pt-1"
+      >
+        {{('OTP_PAGE.LABELS.RESEND_CODE_IN' | translate).replace('{{}}',timer$ |
+        async)}}
+      </h6>
+      <ng-template #resendBtn>
+        <div
+          *ngIf="timer$"
+          [@inOutAnimation]
+          class="flex flex-row items-center w-full pt-1"
+        >
+          <button
+            (click)="resendOtpCode($event)"
+            mat-button
+            type="button"
+            class="flex flex-row items-center text-black"
+          >
+            {{ "OTP_PAGE.LABELS.RESEND_OTP_CODE" | translate }}
+          </button>
+        </div>
+      </ng-template>
+    </div>
+    <button type="submit" form="otp-form" mat-flat-button>
+      {{ "OTP_PAGE.ACTIONS.VERIFY" | translate }}
+    </button>
+  </div>
+  <a
+    (click)="backHome($event)"
+    type="button"
+    class="!font-normal mat-label-small"
+    >Back home</a
   >
-  </ngx-recaptcha2>
 </form>

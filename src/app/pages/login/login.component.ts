@@ -185,6 +185,7 @@ export class LoginComponent implements AfterViewInit {
       this.recaptcha.addValidators(Validators.required);
     };
     const success = (res: LoginRes) => {
+      if (!res) return;
       switch (res.check) {
         case 'uname ,pwd':
         case 'OTP':

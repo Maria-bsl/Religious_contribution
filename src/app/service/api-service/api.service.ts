@@ -9,7 +9,17 @@ export class ApiService {
   constructor(private http: HttpClient) {}
   addLogin(params: any): Observable<any> {
     return this.http.post<any>(`/Loginnew/addLogin`, params, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
+  otpCode(params: any): Observable<any> {
+    return this.http.post<any>(`/OtpCode/addLogin`, params, {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
+  resendOtpCode(params: any): Observable<any> {
+    return this.http.post<any>(`/OtpCode/addLogresend`, params, {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
     });
   }
 }
