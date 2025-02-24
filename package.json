@@ -7,7 +7,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "debug": "browser-sync start --proxy \"http://localhost:55007\" --files \"C:/Users/scott/Documents/DEV/asp_net/Religious-20-01-2024/Coffering_Publish/Script/Angular/browser/*.css\" \"C:/Users/scott/Documents/DEV/asp_net/Religious-20-01-2024/Coffering_Publish/Script/Angular/browser/*.js\" \"C:/Users/scott/Documents/DEV/asp_net/Religious-20-01-2024/Coffering_Publish/Script/Angular/browser/*.map\""
   },
   "private": true,
   "dependencies": {

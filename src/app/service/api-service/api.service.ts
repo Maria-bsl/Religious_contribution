@@ -22,4 +22,9 @@ export class ApiService {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
     });
   }
+  resetPassword(params: any): Observable<any> {
+    return this.http.post<any>(`/Getemail/Forgot`, params, {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
 }

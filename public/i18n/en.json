@@ -2,9 +2,14 @@
   "DEFAULTS": {
     "TITLE": "Religious contribution portal",
     "FAILED": "Failed",
+    "WARNING": "Warning",
     "LABELS": {
       "CLOSE": "Close",
-      "LOADING": "Loading"
+      "LOADING": "Loading",
+      "SUBMIT": "Submit"
+    },
+    "ERRORS": {
+      "UNEXPECTED_ERROR_OCCURRED": "An unexpected error occurred. Please try again or contact support."
     }
   },
   "LOGIN_FORM": {
@@ -23,6 +28,8 @@
         "PASSWORD": "Please, enter password",
         "LOGIN_FAILED": "Login failed",
         "INVALID_USERNAME_OR_PASSWORD": "Username or password is incorrect.",
+        "ACCOUNT_BLOCKED": "Your account has been blocked, Please contact the Administrator.",
+        "ALREADY_LOGGED_IN": "You are already logged in (or)  the browser is closed without logout, please try again after sometime",
         "INVALID_INPUT_DATE": "The input date is greater than 24 hours ago",
         "ENTER_CAPTCHA": "Please, enter captcha"
       }
@@ -45,6 +52,30 @@
       "INVALID_VERIFICATION_CODE": "Invalid verification code! Please, enter the 6 digits code sent to you.",
       "FAILED_TO_VERIFY_CODE": "Failed to verify code! Please contact support or try again.",
       "VERIFICATION_FAILED": "Verification failed"
+    }
+  },
+  "FORGOT_PASSWORD_PAGE": {
+    "LABELS": {
+      "FORGOT_PASSWORD": "Forgot password",
+      "USE_THE_FORM_TO_RECOVER": "Use the form below to recover it.",
+      "I_HAVE_A_PASSWORD": "I have a password"
+    },
+    "FORM": {
+      "LABELS": {
+        "EMAIL": "Email Address",
+        "SECRET_QUESTION": "Secret question",
+        "ANSWER": "Answer"
+      },
+      "PLACEHOLDERS": {
+        "EMAIL": "Ex. lokola@example.com",
+        "SECRET_QUESTION": "Find your question",
+        "ANSWER": "Write your answer"
+      },
+      "ERRORS": {
+        "EMAIL": "Please, enter a valid email address",
+        "SECRET_QUESTION": "Please, select a secret question",
+        "ANSWER": "You must provide an answer"
+      }
     }
   }
 }

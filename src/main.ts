@@ -6,6 +6,7 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import {
   importProvidersFrom,
+  inject,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RecaptchaComponent } from './app/pages/recaptcha/recaptcha.component';
+import { ForgotPasswordFormComponent } from './app/pages/forgot-password-form/forgot-password-form.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'i18n/', '.json');
@@ -66,6 +68,12 @@ function defineCustomElement(name: string, customComponent: any) {
     defineCustomElement(
       'recaptcha-form',
       createCustomElement(RecaptchaComponent, {
+        injector: app.injector,
+      })
+    );
+    defineCustomElement(
+      'forgot-password-form',
+      createCustomElement(ForgotPasswordFormComponent, {
         injector: app.injector,
       })
     );

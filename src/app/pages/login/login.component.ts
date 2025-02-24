@@ -165,8 +165,12 @@ export class LoginComponent implements AfterViewInit {
       });
     };
     const erroneousRes = async (err: any) => {
-      throw err;
+      openAlertDialog(
+        this._tr.instant('DEFAULTS.FAILED'),
+        this._tr.instant('DEFAULTS.ERRORS.UNEXPECTED_ERROR_OCCURRED')
+      );
     };
+
     const switchSuccessErrorRes = (res: LoginRes) => {
       switch (res.check) {
         case 'The input date is greater than 24 hours ago':
@@ -176,7 +180,6 @@ export class LoginComponent implements AfterViewInit {
           );
           break;
         case 'Username or password is incorrect':
-        default:
           openAlertDialog(
             this._tr.instant('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
             this._tr.instant(
@@ -184,6 +187,23 @@ export class LoginComponent implements AfterViewInit {
             )
           );
           break;
+        case 'You are already logged in (or)  the browser is closed without logout, please try again after sometime':
+          openAlertDialog(
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.ALREADY_LOGGED_IN')
+          );
+          break;
+        case 'Your account has been blocked, Please contact the Administrator.':
+          openAlertDialog(
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.ACCOUNT_BLOCKED')
+          );
+          break;
+        default:
+          openAlertDialog(
+            this._tr.instant('LOGIN_FORM.FORM.ERRORS.LOGIN_FAILED'),
+            this._tr.instant(res.check)
+          );
       }
       this.hasPasswordError$ = of(true);
       this.recaptcha.addValidators(Validators.required);

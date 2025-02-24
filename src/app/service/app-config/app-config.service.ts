@@ -12,6 +12,7 @@ import { of, switchMap, zip } from 'rxjs';
 // import { ConfirmMessageBoxComponent } from 'src/app/components/dialogs/confirm-message-box/confirm-message-box.component';
 import { Location } from '@angular/common';
 import { UnsubscribeService } from '../unsubscriber/unsubscriber.service';
+import { MessageBoxComponent } from '../../components/dialogs/message-box/message-box.component';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,15 @@ export class AppConfigService {
         icon,
         this.sanitizer.bypassSecurityTrustResourceUrl(`${path}/${icon}.svg`)
       );
+    });
+  }
+  openAlertDialog(title: string, message: string) {
+    return this._dialog.open(MessageBoxComponent, {
+      width: '400px',
+      data: {
+        title: title,
+        message: message,
+      },
     });
   }
   // private openMessageBoxDialog(title: string, message: string) {
