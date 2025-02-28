@@ -70,12 +70,7 @@
       ></div> -->
       <mat-card class="!w-96 py-4">
         <mat-card-title class="!w-full !grid !place-items-center">
-          <img
-            src="images/RCP-logo.png"
-            class="w-20 block lg:hidden"
-            alt=""
-            srcset=""
-          />
+          <img src="images/RCP-logo.png" class="w-20 py-2" alt="" srcset="" />
           <h6 style="font-family: 'Fjalla One'" class="text-[#041F5C] text-xl">
             Religious contribution portal
           </h6>
@@ -146,18 +141,19 @@
               </mat-form-field>
             </div>
             <div
-              *ngIf="hasPasswordError$ | async"
+              *ngIf="hasPasswordError$.value"
               [@inOutAnimation]
               class="w-full py-2 grid place-items-center"
             >
               <ngx-recaptcha2
                 #captchaElem
+                [formControl]="recaptcha"
                 [siteKey]="siteKeyGoogleCaptchaKey"
                 [useGlobalDomain]="false"
-                [formControl]="recaptcha"
                 (success)="handleSuccess($event)"
                 (expire)="handleExpire()"
                 (reset)="handleExpire()"
+                [(ngModel)]="recaptchaToken"
               >
               </ngx-recaptcha2>
               <mat-error *ngIf="recaptcha && recaptcha.invalid">

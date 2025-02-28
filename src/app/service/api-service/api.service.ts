@@ -27,4 +27,13 @@ export class ApiService {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
     });
   }
+  verifyRecaptcha(params: any): Observable<any> {
+    return this.http.post<any>(
+      `https://www.google.com/recaptcha/api/siteverify`,
+      params,
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    );
+  }
 }

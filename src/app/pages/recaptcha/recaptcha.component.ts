@@ -21,6 +21,7 @@ import {
   startWith,
   switchMap,
   takeWhile,
+  tap,
   timer,
 } from 'rxjs';
 import { UnsubscribeService } from '../../service/unsubscriber/unsubscriber.service';
@@ -90,6 +91,7 @@ export class RecaptchaComponent {
         Validators.required,
         Validators.minLength(RecaptchaComponent.OTP_MAX_LENGTH),
       ]),
+      recaptchaToken: '',
     });
   }
   private openAlertDialog(title: string, message: string) {
@@ -112,8 +114,22 @@ export class RecaptchaComponent {
     this.recaptcha.setValue('');
   }
   handleSuccess(text: string) {
-    this.recaptcha && this.recaptcha.setValue(text);
-    this.m_recaptcha = this.recaptcha.value;
+    if (text) {
+      // this.recaptcha && this.recaptcha.setValue(text);
+      // this.m_recaptcha = this.recaptcha.value;
+      // this.recaptcha && this.recaptcha.setValue(text);
+      // const params = {
+      //   secret: this.secretGoogleCaptchaKey,
+      //   response: text,
+      // };
+      // this._api
+      //   .verifyRecaptcha(params)
+      //   .pipe(
+      //     tap((res) => console.log(res)),
+      //     map((res) => res.success)
+      //   )
+      //   .subscribe(console.log);
+    }
   }
   submitForm(event: Event) {
     const erroneousRes = async (err: any) => {
@@ -239,7 +255,16 @@ export class RecaptchaComponent {
   get recaptcha() {
     return this.formGroup.get('recaptcha') as FormControl;
   }
+  set recaptcha(captcha: any) {
+    //return this.formGroup.get('recaptcha') as FormControl;
+  }
   get opt_code() {
     return this.formGroup.get('opt_code') as FormControl;
+  }
+  set recaptchaToken(captcha: any) {
+    //return this.formGroup.get('opt_code') as FormControl;
+  }
+  get recaptchaToken() {
+    return this.formGroup.get('recaptchaToken');
   }
 }

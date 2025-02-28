@@ -23,6 +23,7 @@
       (reset)="handleExpire()"
       (load)="startTimer()"
       (error)="recaptchaError($event)"
+      [(ngModel)]="recaptchaToken"
     >
     </ngx-recaptcha2>
   </div>

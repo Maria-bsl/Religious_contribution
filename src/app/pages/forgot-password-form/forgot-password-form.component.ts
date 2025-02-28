@@ -20,7 +20,7 @@ import {
   filterNotNull,
   LoadingService,
 } from '../../service/loading-service/loading.service';
-import { catchError, finalize, switchMap } from 'rxjs';
+import { catchError, finalize, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -58,6 +58,7 @@ export class ForgotPasswordFormComponent {
       secretQuestion: this._fb.control('', []),
       answer: this._fb.control('', []),
       recaptcha: this._fb.control('', [Validators.required]),
+      recaptchaToken: '',
     });
   }
   private registerIcons() {
@@ -65,7 +66,20 @@ export class ForgotPasswordFormComponent {
     this._appConfig.addIcons(icons, 'bootstrap-icons');
   }
   handleSuccess(text: string) {
-    this.recaptcha && this.recaptcha.setValue(text);
+    // if (text) {
+    //   this.recaptcha && this.recaptcha.setValue(text);
+    //   const params = {
+    //     secret: this.secretGoogleCaptchaKey,
+    //     response: this.recaptcha.value,
+    //   };
+    //   this._api
+    //     .verifyRecaptcha(params)
+    //     .pipe(
+    //       tap((res) => console.log(res)),
+    //       map((res) => res.success)
+    //     )
+    //     .subscribe(console.log);
+    // }
   }
   handleExpire() {
     this.recaptcha.setValue('');
@@ -122,7 +136,12 @@ export class ForgotPasswordFormComponent {
   get answer() {
     return this.formGroup.get('answer') as FormControl;
   }
+  set recaptcha(recaptcha: any) {}
   get recaptcha() {
     return this.formGroup.get('recaptcha') as FormControl;
+  }
+  set recaptchaToken(token: any) {}
+  get recaptchaToken() {
+    return this.formGroup.get('recaptchaToken');
   }
 }

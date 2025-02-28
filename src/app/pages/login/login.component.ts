@@ -1,5 +1,7 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -29,7 +31,16 @@ import {
 } from '@ngx-translate/core';
 import { AppConfigService } from '../../service/app-config/app-config.service';
 import { MatIconModule } from '@angular/material/icon';
-import { catchError, finalize, mergeMap, Observable, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  finalize,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  tap,
+} from 'rxjs';
 import {
   DomManipulationService,
   filterNotNull,
@@ -84,10 +95,10 @@ export interface LoginForm {
   animations: [inOutAnimation],
   providers: [TranslatePipe],
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements AfterViewInit, AfterViewChecked {
   @Input() keys: string = '';
   @Output('login') login: EventEmitter<string> = new EventEmitter<string>();
-  hasPasswordError$: Observable<boolean> = of(false);
+  hasPasswordError$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   ids$!: Observable<MElementPair>;
   formGroup!: FormGroup;
   siteKeyGoogleCaptchaKey: string = '6Lcsv9IqAAAAALLyQzvOkf_zHtUuj-n_InZdwbhu';
@@ -100,7 +111,8 @@ export class LoginComponent implements AfterViewInit {
     private _api: ApiService,
     private _dialog: MatDialog,
     private _tr: TranslateService,
-    private _loading: LoadingService
+    private _loading: LoadingService,
+    private cdr: ChangeDetectorRef
   ) {
     this.registerIcons();
     this.createFormGroup();
@@ -110,6 +122,7 @@ export class LoginComponent implements AfterViewInit {
       username: this._fb.control('', [Validators.required]),
       password: this._fb.control('', [Validators.required]),
       recaptcha: this._fb.control('', []),
+      recaptchaToken: '',
     });
   }
   private registerIcons() {
@@ -146,6 +159,9 @@ export class LoginComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.animateText();
     //this.initIds();
+  }
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
   forgotPasswordClicked(event: MouseEvent) {
     window.location.href = `${window.location.origin}/Forgot/Forgot`;
@@ -205,8 +221,9 @@ export class LoginComponent implements AfterViewInit {
             this._tr.instant(res.check)
           );
       }
-      this.hasPasswordError$ = of(true);
+      this.hasPasswordError$.next(true);
       this.recaptcha.addValidators(Validators.required);
+      this.cdr.detectChanges();
     };
     const success = (res: LoginRes) => {
       if (!res) return;
@@ -244,8 +261,18 @@ export class LoginComponent implements AfterViewInit {
     this.formGroup.markAllAsTouched();
     this.formGroup.valid && submit();
   }
-  handleSuccess(text: string) {
-    this.recaptcha && this.recaptcha.setValue(text);
+  handleSuccess(text: any) {
+    // if (text) {
+    //   this.recaptcha && this.recaptcha.setValue(text);
+    //   const params = {
+    //     secret: this.secretGoogleCaptchaKey,
+    //     response: text,
+    //   };
+    //   this._api
+    //     .verifyRecaptcha(params)
+    //     .pipe(map((res) => res.success))
+    //     .subscribe(console.log);
+    // }
   }
   get username$() {
     return this._dom.getDomElement$<HTMLInputElement>(
@@ -277,7 +304,18 @@ export class LoginComponent implements AfterViewInit {
   get password() {
     return this.formGroup.get('password') as FormControl;
   }
+  set recaptcha(value: any) {
+    //this.formGroup?.get('recaptcha')?.setValue(value);
+    //return this.formGroup?.get('recaptcha') as FormControl;
+  }
+  set recaptchaToken(value: any) {
+    //this.formGroup?.get('recaptcha')?.setValue(value);
+    //return this.formGroup?.get('recaptcha') as FormControl;
+  }
   get recaptcha() {
     return this.formGroup?.get('recaptcha') as FormControl;
+  }
+  get recaptchaToken() {
+    return this.formGroup?.get('recaptchaToken');
   }
 }
