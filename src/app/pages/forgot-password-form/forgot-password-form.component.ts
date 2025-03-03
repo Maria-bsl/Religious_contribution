@@ -20,7 +20,7 @@ import {
   filterNotNull,
   LoadingService,
 } from '../../service/loading-service/loading.service';
-import { catchError, finalize, map, switchMap, tap } from 'rxjs';
+import { catchError, filter, finalize, map, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -42,6 +42,7 @@ export class ForgotPasswordFormComponent {
   formGroup!: FormGroup;
   siteKeyGoogleCaptchaKey: string = '6Lcsv9IqAAAAALLyQzvOkf_zHtUuj-n_InZdwbhu';
   secretGoogleCaptchaKey: string = '6Lcsv9IqAAAAAK7fiBdqixI8cSSHAtUudGVyioa7';
+  secretQuestions: string = '';
   constructor(
     private _appConfig: AppConfigService,
     private _fb: FormBuilder,
@@ -143,5 +144,17 @@ export class ForgotPasswordFormComponent {
   set recaptchaToken(token: any) {}
   get recaptchaToken() {
     return this.formGroup.get('recaptchaToken');
+  }
+  get secretQuestions$() {
+    try {
+      const regex = /^([^,]+,)*[^,]+$/;
+      if (!regex.test(this.secretQuestions)) {
+        throw new Error('Secret questions must be comma separated');
+      }
+      return of(this.secretQuestions).pipe(map((value) => value.split(',')));
+    } catch (err: any) {
+      console.error(err.message);
+      return of([]);
+    }
   }
 }
